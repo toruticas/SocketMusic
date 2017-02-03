@@ -13,13 +13,19 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-http.listen(3000, function(){
+http.listen(3001, function(){
   console.log('listening on *:3000');
 });
 
 io.on('connection', function(socket){
   socket.on('new message', function(msg){
-    console.log('message: ' + msg);
+    try {
+      var clientIp = socket.request.connection.remoteAddress;
+      console.log(msg + " played form " + clientIp)
+    } catch (e) {
+      console.log(msg);
+    }
+
     io.emit('new message', msg);
   });
 });
