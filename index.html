@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" charset="utf-8">
+    <style>
+      .box {
+        font-size: 20px;
+        font-weight: bold;
+        height: 250px;
+        line-height: 250px;
+        background-color: red;
+        vertical-align: middle;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container-fluid">
+      <div class="row">
+        <div id="imperial_march" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:red">
+          Vitinho tá vino
+        </div>
+
+        <div id="as_you_wish" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:blue">
+          As you wish
+        </div>
+
+        <div id="sabe_de_nada" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:green">
+          Sabe de nada
+        </div>
+
+        <div id="descola_parasita" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:orange">
+          Descola parasita
+        </div>
+
+        <div id="dia_de_maldade" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:purple">
+          Dia de maldade
+        </div>
+
+        <div id="dr_rey" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:yellow">
+          Daniela haha
+        </div>
+
+        <div id="que_delicia" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:cyan">
+          Que delicia
+        </div>
+
+        <div id="empolgante" class="col-lg-3 col-md-4 col-sm-6 col-sx-12 box" style="background-color:magenta">
+          Empolgante
+        </div>
+      </div>
+    </section>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $(".box").on("click", function(){
+        socket.emit('new message', $(this).attr("id"));
+        return false;
+      });
+    </script>
+  </body>
+</html>

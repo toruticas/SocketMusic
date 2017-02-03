@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+
+      #new-message {
+        font-weight: bold;
+        font-weight:
+      }
+
+      li.active {
+        font-weight: bold;
+      }
+
+      img {
+        position: fixed;
+        bottom: 0;
+        right: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var speakerImg = "data:image/png;base64,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"
+
+      var socket = io();
+      socket.on('new message', function(msg){
+        $('#display-message').text(msg);
+
+        $("li.active").removeClass("active")
+
+        if (false) {
+          var audio = new Audio(msg + '.mp3');
+          audio.play();
+        } else {
+          try {
+            window.audio.pause();
+          } catch (e) {
+            console.error("Error while pause audio");
+          }
+
+          window.audio = new Audio(msg + '.mp3');
+          console.log(window.audio)
+
+          try {
+            window.audio.play();
+            window.audio.onended = () => {
+              $("img").remove()
+              $("li.active").removeClass("active")
+            }
+          } catch (e) {
+            console.error("Error while play audio");
+          }
+        }
+
+        $('#messages').append($('<li class="active">').text(">> " + Date() + ":\t" +  msg))
+        $("li").last().append("<img src='" + speakerImg + "' />");
+
+        window.scrollTo(0,document.body.scrollHeight);
+      });
+    </script>
+  </body>
+</html>
